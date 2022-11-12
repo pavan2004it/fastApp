@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 import schemas
 import models
+import uvicorn
 
 from database import Base, engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -63,3 +64,7 @@ def delete_item(obj_id: int, session: Session = Depends(get_session)):
     session.commit()
     session.close()
     return 'Item was deleted...'
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
